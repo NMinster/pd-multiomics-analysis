@@ -1,0 +1,139 @@
+# Configuration file for PD Multi-omics Analysis Pipeline
+# Edit paths to match your data location
+
+# Data paths
+data:
+  proteomics:
+    oncology: "S:/AMP-PD/releases_2023_v4release_1027_proteomics-PLA-PPEA-D03_olink-explore_protein-expression_PLA-PPEA-D03_oncology.csv"
+    neurology: "S:/AMP-PD/releases_2023_v4release_1027_proteomics-PLA-PPEA-D03_olink-explore_protein-expression_PLA-PPEA-D03_neurology.csv"
+    inflammation: "S:/AMP-PD/releases_2023_v4release_1027_proteomics-PLA-PPEA-D03_olink-explore_protein-expression_PLA-PPEA-D03_inflammation.csv"
+    cardiometabolic: "S:/AMP-PD/releases_2023_v4release_1027_proteomics-PLA-PPEA-D03_olink-explore_protein-expression_PLA-PPEA-D03_cardiometabolic.csv"
+  
+  rnaseq:
+    aligned_data: "aligned_rnaseq_data_with_targets.csv"
+    deg_analysis: "S:/Genes/DEG_Analysis.csv"
+  
+  clinical:
+    updrs_part_i: "S:/AMP-PD/releases_2023_v4release_1027_clinical_MDS_UPDRS_Part_I.csv"
+    updrs_part_ii: "S:/AMP-PD/releases_2023_v4release_1027_clinical_MDS_UPDRS_Part_II.csv"
+    updrs_part_iii: "S:/AMP-PD/releases_2023_v4release_1027_clinical_MDS_UPDRS_Part_III.csv"
+    updrs_part_iv: "S:/AMP-PD/releases_2023_v4release_1027_clinical_MDS_UPDRS_Part_IV.csv"
+
+# Output directory
+output:
+  base_dir: "outputs"
+  figures_dir: "outputs/figures"
+  models_dir: "outputs/models"
+  results_dir: "outputs/results"
+
+# Analysis parameters
+parameters:
+  random_state: 42
+  test_size: 0.2
+  n_bootstraps: 1000
+  confidence_level: 0.95
+  
+  # DEG filtering
+  deg_filters:
+    adj_p_val: 0.05
+    log_fc: 0.1
+  
+  # Feature selection
+  feature_selection:
+    variance_threshold: 0.0
+    k_best: 41
+    k_range: [20, 30, 40, 50]
+  
+  # Cross-validation
+  cv:
+    n_splits: 10
+    scoring: "roc_auc"
+  
+  # Latin Hypercube Sampling
+  lhs:
+    n_iter: 50
+    dimensions: 6
+  
+  # Model hyperparameters
+  models:
+    random_forest:
+      n_estimators_range: [500, 1500]
+      max_depth_range: [1, 10]
+      min_samples_split_range: [2, 10]
+      min_samples_leaf_range: [1, 4]
+      class_weight: ["balanced", "balanced_subsample"]
+    
+    xgboost:
+      n_estimators: [100, 300, 500, 1000]
+      max_depth: [3, 5, 7, 9]
+      learning_rate: [0.01, 0.1, 0.2]
+      subsample: [0.6, 0.8, 1.0]
+    
+    gradient_boosting:
+      n_estimators: [100, 300, 500]
+      learning_rate: [0.01, 0.1, 0.2]
+      max_depth: [3, 5, 7]
+    
+    svm:
+      C: [0.1, 1, 10]
+      kernel: ["rbf", "linear"]
+      gamma: ["scale", "auto"]
+    
+    logistic_regression:
+      C: [0.01, 0.1, 1, 10]
+      penalty: ["l1", "l2"]
+      solver: ["liblinear"]
+      max_iter: 1000
+    
+    extra_trees:
+      n_estimators: [100, 300, 500]
+      max_depth: [null, 5, 10]
+
+# PSI analysis
+psi:
+  selected_features:
+    - "O15232"
+    - "O60760"
+    - "P01130"
+    - "P01229"
+    - "P01236"
+    - "P07196"
+    - "P07585"
+    - "P20711"
+    - "P21860"
+    - "P26022"
+    - "P30613"
+    - "P35052"
+    - "P35443"
+    - "Q01638"
+    - "Q08629"
+    - "Q14005"
+    - "Q16853"
+    - "Q5T2D2"
+    - "Q6UXH9"
+    - "Q7Z5L0"
+    - "Q7Z5R6"
+    - "Q8IU57"
+    - "Q8NBJ7"
+    - "Q8NCC3"
+    - "Q96LA6"
+    - "Q96N03"
+    - "Q96RJ3"
+    - "Q9BYF1"
+    - "Q9C0C4"
+    - "Q9NRA1"
+    - "Q9Y265"
+    - "Q9Y4X3"
+  
+  cv_folds: 5
+  
+# Visualization settings
+visualization:
+  dpi: 300
+  figure_format: "eps"
+  alpha: 0.6
+  
+# Logging
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
