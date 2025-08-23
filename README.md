@@ -96,12 +96,12 @@ python scripts/run_analysis.py --config config.yaml --component psi
 
 If you use this code in your research, please cite:
 
-[Add your publication details here]
+medRxiv paper
 
 ### License
 
-[Specify your license - e.g., MIT, Apache 2.0, etc.]
+MIT
 
 ### Contact
 
-[Your contact information]
+nminster@gmu.edu
