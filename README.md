@@ -96,7 +96,7 @@ python scripts/run_analysis.py --config config.yaml --component psi
 
 If you use this code in your research, please cite:
 
-medRxiv paper
+Minster, N., Jafri, S. Plasma proteomics for Parkinson’s disease classification: cross-cohort benchmarking of proteomic, transcriptomic, and multimodal models. npj Parkinsons Dis. (2026). https://doi.org/10.1038/s41531-026-01344-5
 
 ### License
 
